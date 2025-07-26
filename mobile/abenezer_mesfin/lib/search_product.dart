@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class SearchProduct extends StatefulWidget {
   const SearchProduct({super.key});
-
+  static const routeName = '/search';
   @override
   State<SearchProduct> createState() => _SearchProductState();
 }
@@ -15,7 +15,12 @@ class _SearchProductState extends State<SearchProduct> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(Icons.arrow_back_ios, color: Color(0XFF3F51F3)),
+        leading: IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(Icons.arrow_back),
+                          ),
         title: Text(
           'Search Product',
           style: TextStyle(
@@ -63,13 +68,15 @@ class _SearchProductState extends State<SearchProduct> {
                             height: 1.0,
                             letterSpacing: 0.0,
                             color: Color(0xFF666666),
-                          ),),
+                          ),
+                          ),
 
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 12),
                           child: Icon(
                             Icons.arrow_forward,
+                            
                             size: 18,
                             color: Color(0xFF3F51F3),
                           ),
@@ -239,7 +246,7 @@ class _SearchProductState extends State<SearchProduct> {
             topRight: Radius.circular(50),
           ),
           child: Image.asset(
-            'images/s2.jpg',
+            'images/s22.jpg',
             width: 395,
             height: 300,
             fit: BoxFit.cover,
