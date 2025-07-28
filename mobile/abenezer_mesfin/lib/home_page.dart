@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hello_app/addProductPage.dart';
+import 'package:hello_app/add_product_page.dart';
 import 'package:hello_app/details_page.dart';
 import 'package:hello_app/search_product.dart';
 
