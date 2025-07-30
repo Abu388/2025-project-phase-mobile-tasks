@@ -15,7 +15,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late List<Product> data;
+  // late List<Product> data;
+  List<Product> data = []; // Default empty list
 
   @override
   void initState() {
