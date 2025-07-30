@@ -271,3 +271,9 @@ flutter:
   Implements the repository from the domain layer.
 
   This structure helps keep the code organized, scalable, and easier to test or maintain.
+
+                    ## Models
+
+  `ProductModel` is a data class that extends the `Product` entity. It provides:
+  - JSON serialization with `fromJson` and `toJson`
+  - Used for converting local/API data to app-friendly structures
