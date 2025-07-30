@@ -1,8 +1,14 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: prefer_const_constructors, prefer_single_quotes, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 
+import '../../domain/repositories/product_repository.dart';
+
 class SearchProduct extends StatefulWidget {
-  const SearchProduct({super.key});
+  const SearchProduct({
+    super.key,
+    required ProductRepository productRepository,
+  });
   static const routeName = '/search';
   @override
   State<SearchProduct> createState() => _SearchProductState();
@@ -16,11 +22,11 @@ class _SearchProductState extends State<SearchProduct> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            icon: Icon(Icons.arrow_back),
-                          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
         title: Text(
           'Search Product',
           style: TextStyle(
@@ -59,24 +65,24 @@ class _SearchProductState extends State<SearchProduct> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(left: 40),
-                          child: Text("Leather",
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w400,
-                            fontStyle: FontStyle.normal,
-                            fontSize: 20,
-                            height: 1.0,
-                            letterSpacing: 0.0,
-                            color: Color(0xFF666666),
+                          child: Text(
+                            "Leather",
+                            style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w400,
+                              fontStyle: FontStyle.normal,
+                              fontSize: 20,
+                              height: 1.0,
+                              letterSpacing: 0.0,
+                              color: Color(0xFF666666),
+                            ),
                           ),
-                          ),
-
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 12),
                           child: Icon(
                             Icons.arrow_forward,
-                            
+
                             size: 18,
                             color: Color(0xFF3F51F3),
                           ),
@@ -146,7 +152,7 @@ class _SearchProductState extends State<SearchProduct> {
                 ),
               ),
               onPressed: () {},
-              child: Text('ADD', style: TextStyle(color: Colors.white)),
+              child: Text('APPLY', style: TextStyle(color: Colors.white)),
             ),
             SizedBox(height: 40),
           ],
@@ -225,9 +231,9 @@ class _SearchProductState extends State<SearchProduct> {
                 children: [
                   IconButton(
                     onPressed: () {},
-                    icon: Icon(Icons.star, color: Colors.yellow),
+                    icon: const Icon(Icons.star, color: Colors.yellow),
                   ),
-                  Text("\$(4.0)"),
+                  const Text('\$(4.0)'),
                 ],
               ),
             ],
@@ -241,7 +247,7 @@ class _SearchProductState extends State<SearchProduct> {
     return Column(
       children: [
         ClipRRect(
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(50),
             topRight: Radius.circular(50),
           ),
@@ -253,12 +259,12 @@ class _SearchProductState extends State<SearchProduct> {
           ),
         ),
         Container(
-          padding: EdgeInsets.fromLTRB(12, 8, 16, 1),
+          padding: const EdgeInsets.fromLTRB(12, 8, 16, 1),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "Category",
+              const Text(
+                'Category',
                 style: TextStyle(
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w500,
@@ -266,7 +272,7 @@ class _SearchProductState extends State<SearchProduct> {
                   color: Color(0xFF000000),
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Container(
                 height: 57,
                 width: double.infinity,
@@ -275,9 +281,19 @@ class _SearchProductState extends State<SearchProduct> {
                   border: Border.all(color: Colors.black),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 12),
+                padding: const EdgeInsets.symmetric(horizontal: 12),
                 alignment: Alignment.centerLeft,
-                child: Text(""),
+                child: const Text(''),
+              ),
+              SizedBox(height: 5),
+              Text(
+                "Price",
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w500,
+                  fontSize: 20,
+                  color: Color.fromARGB(255, 87, 85, 85),
+                ),
               ),
             ],
           ),

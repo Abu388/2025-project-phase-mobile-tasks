@@ -1,56 +1,58 @@
 import 'package:flutter/material.dart';
-import 'package:hello_app/add_product_page.dart';
-import 'package:hello_app/details_page.dart';
-import 'package:hello_app/search_product.dart';
+import '../../domain/entities/product.dart';
+import '../../domain/repositories/product_repository.dart';
+import 'add_product_page.dart';
+import 'details_page.dart';
+import 'search_product.dart';
 
 class HomePage extends StatefulWidget {
-  static const routeName = '/';
-  const HomePage({super.key});
+  final ProductRepository productRepository;
+
+  const HomePage({super.key, required this.productRepository});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<Map<String, String>> data = [
-    {
-      'name': 'Item 1',
-      'image': 'images/s2.jpg',
-      'desc': 'This is item 1',
-      'price': '\$30',
-    },
-    {
-      'name': 'Item 2',
-      'image': 'images/s22.jpg',
-      'desc': 'This is item 2',
-      'price': '\$35',
-    },
-    {
-      'name': 'Item 3',
-      'image': 'images/s23.jpg',
-      'desc': 'This is item 3',
-      'price': '\$20',
-    },
-  ];
+  late List<Product> data;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProducts(); // call async method separately
+  }
+
+  Future<void> _loadProducts() async {
+    final result = await widget.productRepository.getAllProducts();
+
+    // ignore: unnecessary_type_check
+    if (result is List<Product>) {
+      setState(() {
+        data = result;
+      });
+    } else {
+      setState(() {
+        data = result.map((e) => e).toList();
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: Container(
-          margin: EdgeInsets.all(5),
-          width: 5,
-          height: 50,
+          margin: const EdgeInsets.all(5),
           decoration: BoxDecoration(
-            color: Color(0xFFCCCCCC), //0xFF000000  0xFFCCCCCC
+            color: const Color(0xFFCCCCCC),
             borderRadius: BorderRadius.circular(8),
           ),
         ),
-        title: Align(
+        title: const Align(
           alignment: Alignment.centerLeft,
           child: Column(
-            crossAxisAlignment:
-                CrossAxisAlignment.start, // aligns children to the left
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
@@ -62,26 +64,20 @@ class _HomePageState extends State<HomePage> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    "Hello, ",
+                    'Hello, ',
                     style: TextStyle(
                       fontFamily: 'Sora',
                       fontWeight: FontWeight.w400,
-                      fontStyle: FontStyle.normal,
                       fontSize: 15,
-                      height: 1.0,
-                      letterSpacing: 0.0,
                       color: Color(0xFFAAAAAA),
                     ),
                   ),
                   Text(
-                    "Yohannes",
+                    'Yohannes',
                     style: TextStyle(
-                      fontFamily: 'sora',
+                      fontFamily: 'Sora',
                       fontWeight: FontWeight.w600,
-                      fontStyle: FontStyle.normal,
                       fontSize: 15,
-                      height: 1.0,
-                      letterSpacing: 0.0,
                       color: Color(0xFF000000),
                     ),
                   ),
@@ -91,37 +87,33 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         actions: [
-          Container(
-            // margin: EdgeInsets.only(right: 50.0),
-            child: IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.notification_add),
-            ),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.notification_add),
           ),
         ],
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(50), // height of the bottom section
+          preferredSize: const Size.fromHeight(50),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                " Available Products",
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w600,
-                  fontStyle: FontStyle.normal,
-                  fontSize: 24,
-                  height: 1.0,
-                  color: Color(0xFF3E3E3E),
+              const Padding(
+                padding: EdgeInsets.only(left: 16.0),
+                child: Text(
+                  'Available Products',
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w600,
+                    fontSize: 24,
+                    color: Color(0xFF3E3E3E),
+                  ),
                 ),
               ),
               IconButton(
                 onPressed: () {
                   Navigator.pushNamed(context, SearchProduct.routeName);
                 },
-                icon: Icon(Icons.search),
-                style: ButtonStyle(),
+                icon: const Icon(Icons.search),
               ),
             ],
           ),
@@ -135,8 +127,9 @@ class _HomePageState extends State<HomePage> {
                 final result = await Navigator.pushNamed(
                   context,
                   DetailsPage.routeName,
-                  arguments: item,
+                  arguments: item, // <-- fixed here
                 );
+
                 if (result != null) {
                   ScaffoldMessenger.of(
                     context,
@@ -148,18 +141,25 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Image.asset(
-                      item['image']!,
-                      width: 400,
-                      height: 350,
-                      fit: BoxFit.cover,
+                    ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(50),
+                        topRight: Radius.circular(50),
+                      ),
+                      child: Image.asset(
+                        item.imagePath,
+                        width: 400,
+                        height: 350,
+                        fit: BoxFit.cover,
+                      ),
                     ),
+
                     const SizedBox(width: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          item['name']!,
+                          item.name,
                           style: const TextStyle(
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.w500,
@@ -171,7 +171,7 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             const Icon(Icons.star, color: Colors.yellow),
                             Text(
-                              item['price']!,
+                              item.price,
                               style: const TextStyle(
                                 fontFamily: 'Poppins',
                                 fontWeight: FontWeight.w400,
@@ -199,27 +199,19 @@ class _HomePageState extends State<HomePage> {
           }).toList(),
         ),
       ),
-
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color(0xFF3F51F3),
-
-        onPressed: () async {
-          final result = await Navigator.pushNamed(
+        onPressed: () {
+          Navigator.push(
             context,
-            AddProductPage.routeName,
+            MaterialPageRoute(
+              builder: (_) =>
+                  AddProductPage(productRepository: widget.productRepository),
+            ),
           );
-
-          if (result is Map<String, String>) {
-            setState(() => data.add(result));
-          }
         },
-
         child: const Icon(Icons.add, color: Colors.white),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
-
-
-

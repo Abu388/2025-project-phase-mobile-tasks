@@ -241,3 +241,33 @@ flutter:
   - `avoid_print`, `prefer_const_constructors`, `prefer_single_quotes`, etc.
 - Ran `flutter analyze` to check for linter issues.
 - IDE now shows warnings and suggestions for cleaner, consistent code.
+
+
+
+
+
+
+
+                     🧱 Clean Architecture
+
+  This project follows a Clean Architecture pattern, which separates the app into three main layers:
+
+  Presentation Layer
+
+  Contains the UI (screens like HomePage, AddProductPage, etc.)
+
+  Handles user interaction and displays data.
+
+  Domain Layer
+
+  Contains core business logic (like the Product model and ProductRepository interface).
+
+  Independent from Flutter — pure Dart code.
+
+  Data Layer
+
+  Responsible for data sources (currently using mock data).
+
+  Implements the repository from the domain layer.
+
+  This structure helps keep the code organized, scalable, and easier to test or maintain.
