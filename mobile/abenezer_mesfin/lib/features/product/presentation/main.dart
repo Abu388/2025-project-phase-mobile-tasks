@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../data/datasources/product_local_data_source.dart';
+import '../data/datasources/product_remote_data_source_impl.dart';  // <-- new impl
+import '../data/network/network_info_impl.dart';                     // <-- new impl
 import '../data/repositories/product_repository_impl.dart';
 import '../domain/repositories/product_repository.dart';
 import 'pages/details_page.dart';
@@ -9,8 +11,14 @@ import 'pages/search_product.dart';
 
 void main() {
   final productLocalDataSource = ProductLocalDataSource();
-  final ProductRepository productRepository =
-      ProductRepositoryImpl(productLocalDataSource);
+  final productRemoteDataSource = ProductRemoteDataSourceImpl(); // instantiate impl
+  final networkInfo = NetworkInfoImpl();                        // instantiate impl
+
+  final ProductRepository productRepository = ProductRepositoryImpl(
+    localDataSource: productLocalDataSource,
+    remoteDataSource: productRemoteDataSource,
+    networkInfo: networkInfo,
+  );
 
   runApp(MyApp(productRepository: productRepository));
 }

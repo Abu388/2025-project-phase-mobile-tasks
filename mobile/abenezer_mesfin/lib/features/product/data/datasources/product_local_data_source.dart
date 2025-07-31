@@ -9,7 +9,6 @@ class ProductLocalDataSource implements ProductLocalDataSourceContract {
   List<Product> getAllProducts() => _products;
 
   @override
-  @override
   Product? getProductById(String id) {
     try {
       return _products.firstWhere((product) => product.id == id);
@@ -38,6 +37,7 @@ class ProductLocalDataSource implements ProductLocalDataSourceContract {
     _products.removeWhere((product) => product.id == id);
   }
 }
+
 
 // import '../../domain/entities/product.dart';
 
