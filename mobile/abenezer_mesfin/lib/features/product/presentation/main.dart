@@ -11,8 +11,8 @@ import 'pages/search_product.dart';
 
 void main() {
   final productLocalDataSource = ProductLocalDataSource();
-  final productRemoteDataSource = ProductRemoteDataSourceImpl(); // instantiate impl
-  final networkInfo = NetworkInfoImpl();                        // instantiate impl
+  final productRemoteDataSource = ProductRemoteDataSourceImpl();
+  final networkInfo = NetworkInfoImpl(); // pass instance
 
   final ProductRepository productRepository = ProductRepositoryImpl(
     localDataSource: productLocalDataSource,
