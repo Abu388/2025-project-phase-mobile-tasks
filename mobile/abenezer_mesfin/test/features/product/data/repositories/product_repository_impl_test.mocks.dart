@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+// Adjust the package name & paths to match your project structure!
 import 'package:hello_app/features/product/data/datasources/product_local_data_source_contract.dart';
 import 'package:hello_app/features/product/data/datasources/product_remote_data_source_contract.dart';
 import 'package:hello_app/features/product/data/models/product_model.dart';
@@ -7,9 +8,14 @@ import 'package:hello_app/features/product/data/repositories/product_repository_
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+// Import the generated mocks
 import 'product_repository_impl_test.mocks.mocks.dart';
 
-@GenerateMocks([ProductLocalDataSourceContract, ProductRemoteDataSourceContract, NetworkInfo])
+@GenerateMocks([
+  ProductLocalDataSourceContract,
+  ProductRemoteDataSourceContract,
+  NetworkInfo,
+])
 void main() {
   late ProductRepositoryImpl repository;
   late MockProductLocalDataSourceContract mockLocalDataSource;
@@ -30,16 +36,17 @@ void main() {
 
   final testProduct = ProductModel(
     id: '1',
-    name: 'Test',
+    name: 'Test Product',
     imagePath: 'images/test.jpg',
-    desc: 'description',
+    desc: 'Test Description',
     price: '100',
   );
 
   group('getAllProducts', () {
     test('should get data from remote when online', () async {
       when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
-      when(mockRemoteDataSource.getAllProducts()).thenAnswer((_) async => [testProduct]);
+      when(mockRemoteDataSource.getAllProducts())
+          .thenAnswer((_) async => [testProduct]);
 
       final result = await repository.getAllProducts();
 
@@ -50,7 +57,8 @@ void main() {
 
     test('should get data from local when offline', () async {
       when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
-      when(mockLocalDataSource.getAllProducts()).thenReturn([testProduct]);
+      when(mockLocalDataSource.getAllProducts())
+          .thenAnswer((_) async => [testProduct]);
 
       final result = await repository.getAllProducts();
 

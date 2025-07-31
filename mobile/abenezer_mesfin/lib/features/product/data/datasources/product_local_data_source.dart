@@ -3,37 +3,36 @@ import 'mock_product_data.dart';
 import 'product_local_data_source_contract.dart';
 
 class ProductLocalDataSource implements ProductLocalDataSourceContract {
-  final List<Product> _products = mockProducts;
+  final List<Product> _products = List.from(mockProducts);
 
   @override
-  List<Product> getAllProducts() => _products;
+  Future<List<Product>> getAllProducts() async => Future.value(_products);
 
   @override
-  Product? getProductById(String id) {
+  Future<Product?> getProductById(String id) async {
     try {
-      return _products.firstWhere((product) => product.id == id);
+      final product = _products.firstWhere((product) => product.id == id);
+      return Future.value(product);
     } catch (e) {
-      return null;
+      return Future.value(null);
     }
   }
 
   @override
-  void createProduct(Product product) {
+  Future<void> createProduct(Product product) async {
     _products.add(product);
   }
 
   @override
-  void updateProduct(Product updatedProduct) {
-    final index = _products.indexWhere(
-      (product) => product.id == updatedProduct.id,
-    );
+  Future<void> updateProduct(Product updatedProduct) async {
+    final index = _products.indexWhere((product) => product.id == updatedProduct.id);
     if (index != -1) {
       _products[index] = updatedProduct;
     }
   }
 
   @override
-  void deleteProduct(String id) {
+  Future<void> deleteProduct(String id) async {
     _products.removeWhere((product) => product.id == id);
   }
 }

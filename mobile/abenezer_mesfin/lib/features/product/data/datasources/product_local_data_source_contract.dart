@@ -1,9 +1,10 @@
+// product_local_data_source_contract.dart
 import '../../domain/entities/product.dart';
 
 abstract class ProductLocalDataSourceContract {
-  List<Product> getAllProducts();
-  Product? getProductById(String id);
-  void createProduct(Product product);
-  void updateProduct(Product product);
-  void deleteProduct(String id);
+  Future<List<Product>> getAllProducts();
+  Future<Product?> getProductById(String id);
+  Future<void> createProduct(Product product);
+  Future<void> updateProduct(Product product);
+  Future<void> deleteProduct(String id);
 }

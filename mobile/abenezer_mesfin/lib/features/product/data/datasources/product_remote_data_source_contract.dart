@@ -1,3 +1,4 @@
+// product_remote_data_source_contract.dart
 import '../../domain/entities/product.dart';
 
 abstract class ProductRemoteDataSourceContract {
