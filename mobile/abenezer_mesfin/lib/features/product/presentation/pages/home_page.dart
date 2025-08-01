@@ -7,7 +7,6 @@ import 'search_product.dart';
 
 class HomePage extends StatefulWidget {
   final ProductRepository productRepository;
-
   const HomePage({super.key, required this.productRepository});
 
   @override

@@ -1,3 +1,58 @@
+// import 'package:flutter/material.dart';
+// import '../../../injection_container.dart' as di; // make sure this path is correct
+// import '../domain/repositories/product_repository.dart';
+// import 'pages/details_page.dart';
+// import 'pages/home_page.dart';
+// import 'pages/search_product.dart';
+
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await di.init(); // 🔧 initialize service locator
+//   runApp(const MyApp());
+// }
+
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final productRepository = di.sl<ProductRepository>(); // 🎯 resolved from service locator
+
+//     return MaterialApp(
+//       title: 'Product Manager',
+//       debugShowCheckedModeBanner: false,
+//       initialRoute: '/',
+//       routes: {
+//         '/': (context) => HomePage(productRepository: productRepository),
+//         SearchProduct.routeName: (context) =>
+//             SearchProduct(productRepository: productRepository),
+//         DetailsPage.routeName: (context) =>
+//             DetailsPage(productRepository: productRepository),
+//       },
+//     );
+//   }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
