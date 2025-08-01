@@ -51,4 +51,5 @@ class Product {
       imagePath.hashCode ^
       desc.hashCode ^
       price.hashCode;
+
 }
