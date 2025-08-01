@@ -32,4 +32,23 @@ class Product {
       'price': price,
     };
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Product &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          name == other.name &&
+          imagePath == other.imagePath &&
+          desc == other.desc &&
+          price == other.price;
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      name.hashCode ^
+      imagePath.hashCode ^
+      desc.hashCode ^
+      price.hashCode;
 }

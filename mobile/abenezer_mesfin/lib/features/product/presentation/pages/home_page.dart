@@ -24,20 +24,21 @@ class _HomePageState extends State<HomePage> {
     _loadProducts(); // call async method separately
   }
 
-  Future<void> _loadProducts() async {
+ Future<void> _loadProducts() async {
+  try {
     final result = await widget.productRepository.getAllProducts();
-
-    // ignore: unnecessary_type_check
-    if (result is List<Product>) {
-      setState(() {
-        data = result;
-      });
-    } else {
-      setState(() {
-        data = result.map((e) => e).toList();
-      });
+    print('Remote products fetched:');
+    for (var p in result) {
+      print('Product: id=${p.id}, name=${p.name}, imagePath=${p.imagePath}');
     }
+    setState(() {
+      data = result;
+    });
+  } catch (e) {
+    print('Error fetching products: $e');
   }
+}
+
 
   @override
   Widget build(BuildContext context) {

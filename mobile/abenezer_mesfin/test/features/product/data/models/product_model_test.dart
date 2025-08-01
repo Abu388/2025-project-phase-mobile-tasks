@@ -1,8 +1,6 @@
 import 'package:hello_app/features/product/data/models/product_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-
-
 void main() {
   group('ProductModel Test', () {
     final productJson = {
