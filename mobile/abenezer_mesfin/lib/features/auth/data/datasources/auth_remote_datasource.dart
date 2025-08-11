@@ -14,7 +14,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
   AuthRemoteDataSourceImpl({required this.client});
 
-  @override
+    @override
   Future<UserModel> login(String email, String password) async {
     final loginUrl = Uri.parse(
       'https://g5-flutter-learning-path-be-tvum.onrender.com/api/v2/auth/login',
@@ -30,15 +30,11 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     print("LOGIN BODY: ${loginResponse.body}");
 
     if (loginResponse.statusCode == 200 || loginResponse.statusCode == 201) {
-      // Step 1: Get access token from login response
       final token = jsonDecode(loginResponse.body)['data']['access_token'];
-        ////////////////////////////
-        // ✅ Save token globally
-      TokenStorage().saveToken(token);
-      ////////////////////////////.
-      ///
       
-      // Step 2: Fetch user info using token
+      // AWAIT here to ensure token is saved before continuing
+      await TokenStorage().saveToken(token);  
+
       final userResponse = await client.get(
         Uri.parse(
           'https://g5-flutter-learning-path-be-tvum.onrender.com/api/v2/users/me',
@@ -50,9 +46,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       );
 
       if (userResponse.statusCode == 200 || userResponse.statusCode == 201) {
-        final userData = jsonDecode(
-          userResponse.body,
-        )['data']; // ✅ Fix: Get actual user data
+        final userData = jsonDecode(userResponse.body)['data'];
+        print('User profile response: $userData');
         return UserModel.fromJson(userData);
       } else {
         throw Exception('Failed to fetch user info: ${userResponse.body}');
@@ -61,6 +56,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       throw Exception('Failed to login: ${loginResponse.body}');
     }
   }
+
 
   @override
   Future<UserModel> register(String name, String email, String password) async {

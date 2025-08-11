@@ -8,10 +8,15 @@ class UserModel extends User {
   }) : super(id: id, name: name, email: email);
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
+    // Handle case where user info is inside `data`
+    final map = (json['data'] is Map)
+        ? Map<String, dynamic>.from(json['data'] as Map)
+        : json;
+
     return UserModel(
-      id: json['id'],
-      name: json['name'],
-      email: json['email'],
+      id: (map['_id'] ?? map['id'] ?? '').toString(),
+      name: (map['name'] ?? '').toString(),
+      email: (map['email'] ?? '').toString(),
     );
   }
 }

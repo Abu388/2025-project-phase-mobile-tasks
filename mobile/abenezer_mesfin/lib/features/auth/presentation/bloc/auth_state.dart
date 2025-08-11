@@ -27,3 +27,8 @@ class AuthFailure extends AuthState {
   @override
   List<Object?> get props => [message];
 }
+
+
+// okay im now going in ur way, but u need to update ma code okay. tail me which page do u want and i send u
+
+

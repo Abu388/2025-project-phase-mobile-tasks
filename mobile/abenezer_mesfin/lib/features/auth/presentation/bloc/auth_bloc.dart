@@ -36,22 +36,27 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   void _onLoginRequested(
-    LoginRequested event,
-    Emitter<AuthState> emit,
-  ) async {
-    emit(AuthLoading());
+  LoginRequested event,
+  Emitter<AuthState> emit,
+) async {
+  emit(AuthLoading());
 
-    final result = await loginUsecase(event.email, event.password);
+  final result = await loginUsecase(event.email, event.password);
 
-    result.fold(
-      (failure) => emit(AuthFailure(failure.message ?? 'Login Failed ❌')),
-      (user) {
-        // ✅ Connect socket after successful login
-        final socketService = SocketService();
-        socketService.connect();
+  await result.fold(
+    (failure) async {
+      emit(AuthFailure(failure.message ?? 'Login Failed ❌'));
+    },
+    (user) async {
+      final socketService = SocketService();
+      await socketService.connect(); // await async connect()
 
-        emit(AuthSuccess(user));
-      },
-    );
-  }
+      emit(AuthSuccess(user));
+    },
+  );
 }
+
+}
+
+
+// what are

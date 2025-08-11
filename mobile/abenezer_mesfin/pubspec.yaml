@@ -31,7 +31,15 @@ dependencies:
   flutter:
     sdk: flutter
   equatable: ^2.0.3
+  flutter_native_splash: ^2.4.0
+  uuid: ^3.0.6
+  
+  
+  injectable: ^2.1.2
+  cloud_firestore: ^4.13.0
   get_it: ^7.6.0
+  dartz: ^0.10.1
+  socket_io_client: ^2.0.3+1 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
@@ -39,6 +47,12 @@ dependencies:
   internet_connection_checker: ^3.0.1
   shared_preferences: ^2.5.3
   flutter_bloc: ^9.1.1
+  google_fonts: ^6.3.0
+flutter_native_splash:
+    color: "#ffffff"
+    image: assets/im.png
+    android: true
+    ios: true
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -66,6 +80,11 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - images/
+    - assets/im.png
+  # fonts:
+  #   - family: Caveat Brush
+  #     fonts:
+  #       - asset: assets/fonts/CaveatBrush-Regular.ttf
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

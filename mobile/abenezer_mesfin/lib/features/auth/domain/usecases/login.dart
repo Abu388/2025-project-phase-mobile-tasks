@@ -9,7 +9,7 @@ class Login {
 
   Login(this.repository);
 
-  Future<Either<Failure, User>> call(String email, String password) {
-    return repository.login(email, password);
+  Future<Either<Failure, User>> call(String email, String password) async {
+    return await repository.login(email, password);
   }
 }
